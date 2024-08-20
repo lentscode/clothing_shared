@@ -43,6 +43,7 @@ class _ClothingImpl extends Clothing {
       };
 }
 
+//TODO: ADD MORE CLOTHING TYPES
 enum ClothingType {
   shirt("shirt");
 
