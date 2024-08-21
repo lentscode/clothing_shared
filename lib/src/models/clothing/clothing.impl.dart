@@ -8,6 +8,15 @@ class _ClothingImpl extends Clothing {
     required super.type,
   }) : super._();
 
+  factory _ClothingImpl.fromMap(Map<String, dynamic> map) => _ClothingImpl(
+        id: map["_id"],
+        name: map["name"],
+        userId: map["userId"],
+        type: ClothingType.values.firstWhere(
+          (ClothingType element) => element.name == map["type"],
+        ),
+      );
+
   @override
   String toJson() => jsonEncode(toMap());
 
