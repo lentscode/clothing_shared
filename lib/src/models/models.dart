@@ -1,15 +1,11 @@
 library;
 
-import "dart:convert";
-
 import "package:mongo_dart/mongo_dart.dart";
 
-part "clothing.dart";
-part "outfit.dart";
-part "user.dart";
+export "./clothing/clothing.dart";
 
-abstract class _MongoObject {
-  const _MongoObject({required this.id});
+abstract class MongoObject {
+  const MongoObject({required this.id});
 
   final ObjectId id;
 

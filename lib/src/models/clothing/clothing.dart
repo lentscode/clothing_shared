@@ -1,6 +1,11 @@
-part of "models.dart";
+import "dart:convert";
 
-abstract class Clothing extends _MongoObject {
+import "package:mongo_dart/mongo_dart.dart";
+import "../../../shared.dart";
+
+part "clothing.impl.dart";
+
+abstract class Clothing extends MongoObject {
   const Clothing._({
     required super.id,
     required this.name,
@@ -21,26 +26,6 @@ abstract class Clothing extends _MongoObject {
 
   Map<String, dynamic> toMap();
   String toJson();
-}
-
-class _ClothingImpl extends Clothing {
-  const _ClothingImpl({
-    required super.id,
-    required super.name,
-    required super.userId,
-    required super.type,
-  }) : super._();
-
-  @override
-  String toJson() => jsonEncode(toMap());
-
-  @override
-  Map<String, dynamic> toMap() => <String, String>{
-        "_id": oid,
-        "name": name,
-        "userId": userId,
-        "type": type.name,
-      };
 }
 
 //TODO: ADD MORE CLOTHING TYPES
