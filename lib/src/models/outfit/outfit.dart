@@ -20,8 +20,14 @@ abstract class Outfit extends MongoObject {
     required ObjectId id,
     required List<Clothing> clothings,
     required String name,
-    required String userId,
+    required ObjectId userId,
   }) = _OutfitImpl;
+
+  factory Outfit.create({
+    required List<Clothing> clothings,
+    required String name,
+    required ObjectId userId,
+  }) = _OutfitImpl.create;
 
   /// Creates an [Outfit] from a [map].
   factory Outfit.fromMap(Map<String, dynamic> map) = _OutfitImpl.fromMap;
@@ -33,10 +39,11 @@ abstract class Outfit extends MongoObject {
   final String name;
 
   /// The id of the [User] that created the outfit.
-  final String userId;
+  final ObjectId userId;
 
   /// Converts the outfit to a [Map].
   Map<String, dynamic> toMap();
+  Map<String, dynamic> toMongo();
 
   /// Converts the outfit to a JSON string.
   String toJson();

@@ -10,9 +10,21 @@ class _OutfitImpl extends Outfit {
 
   factory _OutfitImpl.fromMap(Map<String, dynamic> map) => _OutfitImpl(
         id: map["_id"],
-        clothings: (map["clothings"] as List<dynamic>).map<Clothing>((dynamic e) => Clothing.fromMap(e)).toList(),
+        clothings: map["clothings"] ,
         name: map["name"],
-        userId: map["userId"],
+        userId: ObjectId.parse(map["userId"]),
+      );
+
+  factory _OutfitImpl.create({
+    required List<Clothing> clothings,
+    required String name,
+    required ObjectId userId,
+  }) =>
+      _OutfitImpl(
+        id: ObjectId(),
+        clothings: clothings,
+        name: name,
+        userId: userId,
       );
 
   @override
@@ -24,5 +36,13 @@ class _OutfitImpl extends Outfit {
         "clothings": clothings.map((Clothing clothing) => clothing.toMap()).toList(),
         "name": name,
         "userId": userId,
+      };
+
+  @override
+  Map<String, dynamic> toMongo() => <String, dynamic>{
+        "_id": id,
+        "clothings": clothings.map((Clothing clothing) => clothing.oid).toList(),
+        "name": name,
+        "userId": userId.oid,
       };
 }

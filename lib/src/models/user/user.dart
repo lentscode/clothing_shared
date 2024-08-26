@@ -1,7 +1,5 @@
 import "dart:convert";
 
-import "package:mongo_dart/mongo_dart.dart";
-
 import "../../../shared.dart";
 
 part "user.impl.dart";
@@ -10,30 +8,31 @@ part "user.impl.dart";
 abstract class User extends MongoObject {
   User._({
     required super.id,
-    required this.name,
     required this.email,
     required this.hashPassword,
     required this.salt,
+    this.name,
     this.sessionId,
   });
 
   /// Creates a new [User].
   factory User({
     required ObjectId id,
-    required String name,
     required String email,
     required String hashPassword,
     required String salt,
+    String? name,
     String? sessionId,
   }) = _UserImpl;
 
   /// Creates a new [User] with a new [ObjectId].
-  factory User.create(
-          {required String name,
-          required String email,
-          required String hashPassword,
-          required String salt,
-          String? sessionId}) =>
+  factory User.create({
+    required String email,
+    required String hashPassword,
+    required String salt,
+    String? name,
+    String? sessionId,
+  }) =>
       _UserImpl(
         id: ObjectId(),
         name: name,
@@ -46,7 +45,7 @@ abstract class User extends MongoObject {
   factory User.fromMap(Map<String, dynamic> map) => _UserImpl.fromMap(map);
 
   /// The name of the user.
-  final String name;
+  final String? name;
 
   /// The email of the user.
   final String email;
